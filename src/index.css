@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
+html, body{
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* HTML: <div class="loader"></div> */
+.loader {
+    width: 50px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: 
+      radial-gradient(farthest-side,#ffa516 94%,#0000) top/8px 8px no-repeat,
+      conic-gradient(#0000 30%,#ffa516);
+    -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 8px),#000 0);
+    animation: l13 1s infinite linear;
+  }
+  @keyframes l13{ 
+    100%{transform: rotate(1turn)}
+  }
+  
+/* codeblock */
+.gradient-text {
+    background: linear-gradient(to right, #1fa2ff, #a6ffcb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.custom-shadow {
+    position: relative;
+    display: inline-block; /* Adjust if needed to fit your layout */
+    box-shadow: 
+      -10px -15px 60px #064468, /* Top and left shadow */
+      15px 15px rgb(255, 255, 255); /* Bottom and right shadow */
+}
+
+.code-border {
+    /* background: linear-gradient(111.93deg, rgba(14, 26, 45, .24) -1.4%, rgba(17, 30, 50, .38) 104.96%); */
+    border: 2px solid;
+    /* border-radius: 1rem; */
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to right bottom, #ffffff38, #ffffff00);
+}
+
+.codeblock1, .codeblock2{
+    border-radius: 100%;
+    -webkit-filter: blur(34px);
+    filter: blur(34px);
+    height: 257.05px;
+    left: calc(50% - 263.005px);
+    opacity: .2;
+    top: calc(50% - 175.995px);
+    -webkit-transform: matrix(1, 0, -.03, 1, 0, 0);
+    transform: matrix(1, 0, -.03, 1, 0, 0);
+    width: 372.95px;
+}
+
+.codeblock1 {
+    background: linear-gradient(123.77deg, #8a2be2 -6.46%, orange 59.04%, #f8f8ff 124.53%);
+}
+   
+.codeblock2 {
+    background: linear-gradient(118.19deg, #1fa2ff -3.62%, #12d8fa 50.44%, #a6ffcb 104.51%);
+    /* position: absolute; */
+}
+
+.divider {
+    width: 1px;
+    background-color: #2C333F;
+    height: auto;
+    align-self: stretch; /* This will ensure the divider takes the height of its parent */
+    margin: 0 4rem; /* Optional: to add some space around the divider */
+}
+
+.font-style{
+    font-family: "Source Code Pro", monospace;
+}
+
+
+/* footer */
+.hover-footer {
+    transition: all 0.15s;
+}
+  
+.hover-footer:hover {
+    color: rgb(195, 195, 195);
+}
+
+/* homepage section 2 */
+.homepage_bg{
+    background-image: url(../src/assets/Images/bghome.svg);
+    width: 100vw;
+}
+
+/* instructor */
+.custom-shadow-instructor{
+    box-shadow: 
+    -15px -15px rgb(255, 255, 255); /* Bottom and right shadow */
+}
+
+.course-card-shadow{
+    box-shadow: 
+    15px 15px #FFD60A; /* Bottom and right shadow */
+}
+
+.input-shadow{
+    box-shadow: rgba(255, 255, 255, 0.18) 0px -1px 0px inset;
+}
+
+.input-shadow::placeholder{
+    color: #7d808b;
+}
