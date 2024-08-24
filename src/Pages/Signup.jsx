@@ -173,8 +173,8 @@ const Login = () => {
                         </div>
                     </div>
 
-                    <div className='bg-yellow-200 py-2 px-4 rounded-lg flex justify-center mt-8'>
-                        <button type='submit'>
+                    <div className='bg-yellow-200 rounded-lg flex justify-center mt-8'>
+                        <button type='submit' className='py-2 px-4 w-full'>
                             Create Account
                         </button>
                     </div>
