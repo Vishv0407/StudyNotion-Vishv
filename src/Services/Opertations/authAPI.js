@@ -47,6 +47,7 @@ export function signUp(
   firstName,
   lastName,
   email,
+  contactNumber,
   password,
   confirmPassword,
   otp,
@@ -61,6 +62,7 @@ export function signUp(
         firstName,
         lastName,
         email,
+        contactNumber,
         password,
         confirmPassword,
         otp,
@@ -83,7 +85,7 @@ export function signUp(
   }
 }
 
-export function login(email, password, navigate) {
+export function login(email, password, accountType, navigate) {
   return async (dispatch) => {
     const toastId = toast.loading("Loading...")
     dispatch(setLoading(true))
@@ -91,6 +93,7 @@ export function login(email, password, navigate) {
       const response = await apiConnector("POST", LOGIN_API, {
         email,
         password,
+        accountType,
       })
 
       console.log("LOGIN API RESPONSE............", response)
@@ -106,12 +109,24 @@ export function login(email, password, navigate) {
         : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.user.firstName} ${response.data.user.lastName}`
       dispatch(setUser({ ...response.data.user, image: userImage }))
       
-      localStorage.setItem("token", JSON.stringify(response.data.token))
+      localStorage.setItem("token", JSON.stringify(response.data.user.token))
       localStorage.setItem("user", JSON.stringify(response.data.user))
-      navigate("/dashboard/my-profile")
+      navigate("/dashboard")
     } catch (error) {
-      console.log("LOGIN API ERROR............", error)
-      toast.error("Login Failed")
+
+      if(error.response.data.message === "Wrong role selected"){
+        toast.error("Wrong role selected")
+      }
+      else if(error.response.data.message === "Password not matched"){
+        toast.error("Password not matched")
+      }
+      else if(error.response.status === 404){
+        toast.error("User not found")
+      }
+      else{
+        console.log("LOGIN API ERROR............", error)
+        toast.error("Login Failed")
+      }
     }
     dispatch(setLoading(false))
     toast.dismiss(toastId)
@@ -134,7 +149,7 @@ export function getPasswordResetToken(email , setEmailSent) {
   return async(dispatch) => {
     dispatch(setLoading(true));
     try{
-      const response = await apiConnector("POST", RESETPASSTOKEN_API, {email,})
+      const response = await apiConnector("POST", RESETPASSTOKEN_API, {email})
 
       console.log("RESET PASSWORD TOKEN RESPONSE....", response);
 
@@ -153,14 +168,10 @@ export function getPasswordResetToken(email , setEmailSent) {
   }
 }
 
-export function resetPassword(password, confirmPassword, token) {
+export function resetPassword(password, confirmPassword, token, navigate) {
   return async(dispatch) => {
     dispatch(setLoading(true));
     try{
-
-      console.log("token: ", token);
-      console.log("password: ", password);
-      console.log("confirm Password: ", confirmPassword);
 
       const response = await apiConnector("POST", RESETPASSWORD_API, {password, confirmPassword, token});
 
@@ -172,9 +183,11 @@ export function resetPassword(password, confirmPassword, token) {
       }
 
       toast.success("Password has been reset successfully");
+      navigate('/reset-complete', { state: { token } });
     }
     catch(error) {
-      console.log("RESET PASSWORD TOKEN Error", error);
+
+      console.log("RESET PASSWORD Error", error);
       toast.error("Unable to reset password");
     }
     dispatch(setLoading(false));

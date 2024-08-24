@@ -35,7 +35,7 @@ const Login = () => {
 
     function submitHandler(event){
         event.preventDefault();
-        dispatch(login(email,password, navigate));
+        dispatch(login(email,password,accountType, navigate));
     }
 
     return (
@@ -49,11 +49,13 @@ const Login = () => {
             </div>
             <div className='input-shadow bg-richblack-800 flex flex-row w-fit p-1 rounded-full items-center my-8'>
                 <button 
+                    type='button'
                     className={` ${accountType === 'Student' ? "bg-richblack-900 rounded-full p-2 flex px-6 text-white" : "text-richblack-300 px-6"}`}
                     onClick={() => setAccountType("Student")}>
                     Student
                 </button>
                 <button 
+                    type='button'
                     className={` ${accountType === 'Instructor' ? "bg-richblack-900 rounded-full p-2 flex px-6 text-white" : "text-richblack-300 px-6"}`}
                     onClick={() => setAccountType("Instructor")}>
                     Instructor

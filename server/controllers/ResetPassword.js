@@ -103,6 +103,15 @@ exports.resetPassword = async (req, res) => {
             { new: true }
         );
 
+        const email = userDetails.email;
+        const firstName = userDetails.firstName;
+
+        await mailSender(email, "Password changed Successfully", 
+            `Dear ${firstName},
+            
+            Your StudyNotion account password has been changed successfully!!`
+        );
+
         // Return success response
         return res.status(200).json({
             success: true,
@@ -117,3 +126,32 @@ exports.resetPassword = async (req, res) => {
         });
     }
 };
+
+exports.resetCompleteUserData = async(req, res) => {
+    try{
+        const {token} = req.body;
+        
+        const user = await User.findOne({token:token});
+
+        if(!user){
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+        
+        res.status(200).json({
+            success: true,
+            message: "Reset complete user data fetch successfully",
+            data: user
+        });
+    }
+    catch{
+        console.error("Error in resetCompleteUserData controller", error);
+        return res.status(500).json({
+            success: false,
+            message: "Error in resetCompleteUserData controller",
+        });
+
+    }
+}

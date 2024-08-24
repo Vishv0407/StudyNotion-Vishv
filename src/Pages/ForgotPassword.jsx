@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { getPasswordResetToken } from '../Services/Opertations/authAPI';
 import { HiMiniArrowLongLeft } from "react-icons/hi2";
 
@@ -13,10 +13,11 @@ const ForgotPassword = () => {
     const {loading} = useSelector((state) => state.auth);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const submitHandler = (e) => {
         e.preventDefault();
-        dispatch(getPasswordResetToken(email, setEmailSent))
+        dispatch(getPasswordResetToken(email, setEmailSent, navigate))
     }
 
   return (

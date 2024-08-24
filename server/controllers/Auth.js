@@ -162,11 +162,11 @@ exports.signUp = async(req, res) => {
 exports.login = async(req, res) => {
     try{
         // fetch data from req body
-        const {email, password} = req.body;
+        const {email, password, accountType} = req.body;
 
         // validate data
-        if(!email || !password){
-            res.status(403).json({
+        if(!email || !password || !accountType){
+            return res.status(403).json({
                 success: false,
                 message:"All fields are not filled",
             })
@@ -178,10 +178,17 @@ exports.login = async(req, res) => {
         const user = await User.findOne({email});
 
         if(!user){
-            res.status(404).json({
+            return res.status(404).json({
                 success: false,
                 message:"user not found, please create account then try to login",
             });
+        }
+
+        if(accountType !== user.accountType){
+            return res.status(403).json({
+                success: false,
+                message: "Wrong role selected",
+            })
         }
 
         if(await bcrypt.compare(password, user.password)){
@@ -221,6 +228,7 @@ exports.login = async(req, res) => {
     catch(error){
         console.log("error in login controller");
         console.error(error);
+
         return res.status(500).json({
             success:false,
             message: "error in login controller",

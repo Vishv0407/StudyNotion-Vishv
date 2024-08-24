@@ -7,6 +7,7 @@ import Navbar from './Components/common/Navbar';
 import ForgotPassword from "./Pages/ForgotPassword";
 import UpdatePassword from "./Pages/UpdatePassword";
 import VerifyEmail from "./Pages/VerifyEmail";
+import ResetComplete from "./Pages/ResetComplete";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword/>} />
         <Route path="/update-password/:id" element={<UpdatePassword/>} />
         <Route path="/verify-email" element={<VerifyEmail/>} />
+        <Route path="/reset-complete" element={<ResetComplete/>} />
 
 
       </Routes>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { resetPassword } from '../Services/Opertations/authAPI';
-import { useLocation } from 'react-router-dom';
+import { resetComplete, resetPassword } from '../Services/Opertations/authAPI';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import {AiOutlineEye, AiOutlineEyeInvisible} from "react-icons/ai";
 import { HiMiniArrowLongLeft } from "react-icons/hi2";
@@ -12,6 +12,7 @@ const UpdatePassword = () => {
 
     const dispatch = useDispatch();
     const location = useLocation();
+    const navigate = useNavigate();
     
     const [formData,setFormData] = useState({
         password: "",
@@ -35,14 +36,15 @@ const UpdatePassword = () => {
         const token = location.pathname.split('/').at(-1);
 
 
-        dispatch(resetPassword(password, confirmPassword, token));
+        dispatch(resetPassword(password, confirmPassword, token, navigate));
+
     }
 
   return (
     <div className='h-[90vh] flex justify-center items-center'>
         {
             loading ? (
-                <div class="loader"></div>
+                <div className="loader"></div>
             ) : (
                 <div className=' w-[80%] md:w-[60%] lg:w-[25%] md:min-w-[400px] m-auto h-[90vh] flex flex-col justify-center items-start'>
                     <h1 className='text-richblack-5 font-bold text-3xl mb-4'>Choose new Password</h1>
