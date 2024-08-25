@@ -36,7 +36,7 @@ const CodeBlocks = ({
 
         {/* Section 2 */}
 
-        <div className='flex flex-row gap-0 h-fit  justify-center code-border p-4 relative w-[100%] lg:max-w-lg'>
+        <div className='text-[10px] md:text-base w-[60%] flex flex-row gap-0 h-fit  justify-center code-border p-4 relative  lg:max-w-lg'>
             <div className={`${backgroundGradient} absolute`}>
             </div>
             <div className='text-center flex flex-col w-[10%] text-richblack-400 font-inter font-bold '>
@@ -53,7 +53,7 @@ const CodeBlocks = ({
                 <p>11</p>
             </div>
 
-            <div className={`w-[100%] lg:w-[500px] flex flex-col text-left font-inter font-semibold ${codeColor} font-style`}>
+            <div className={`w-[90%] lg:w-[500px] flex flex-col text-left font-inter font-semibold ${codeColor} font-style`}>
                 <TypeAnimation
                     sequence={[codeblock, 5000, ""]}
                     repeat={Infinity}

@@ -51,8 +51,8 @@ const Home = () => {
         </div>
 
         <div className=' my-12 mx-auto max-w-4xl flex justify-center'>
-          <div className='custom-shadow w-sm'>
-            <video muted loop autoPlay className='w-sm'>
+          <div className='custom-shadow md:w-sm w-[60%] '>
+            <video muted loop autoPlay>
               <source src={bannerVideo} type='video/mp4' />
             </video>          
           </div>
@@ -65,7 +65,7 @@ const Home = () => {
               <div className='text-4xl font-semibold'>
                 Unlock Your
                 <HighlightText text={"coding potential"}></HighlightText>
-                with our online courses.
+                {" "}with our online courses.
               </div> 
             }
             subheading={

@@ -188,7 +188,16 @@ export function resetPassword(password, confirmPassword, token, navigate) {
     catch(error) {
 
       console.log("RESET PASSWORD Error", error);
-      toast.error("Unable to reset password");
+
+      if (error.response.message === "Reset Password Token is invalid") {
+        toast.error("Reset Password Token is invalid");
+      }
+      else if (error.response.message === "Reset Password Token has expired") {
+        toast.error("Reset Password Token has expired");
+      }
+      else {
+        toast.error("Unable to reset password");
+      }
     }
     dispatch(setLoading(false));
   }

@@ -26,7 +26,7 @@ exports.resetPasswordToken = async(req, res) => {
                                         {email: email}, 
                                         {
                                             token: token,
-                                            resetPasswordExpires: Date.now() + 2*24*60*60*1000,
+                                            resetPasswordExpires: Date.now() + 5*60*1000,
                                             // 5 mins     
                                         },
                                         {new: true});
@@ -34,7 +34,11 @@ exports.resetPasswordToken = async(req, res) => {
         // create url
         const url = `http://localhost:3000/update-password/${token}`;
 
-        await mailSender(email, "Password Reset Link", `Your link: ${url}`);
+        await mailSender(email, "Password Reset Link", 
+            `Your link: ${url}
+            
+            This will be expire in 5 minutes`
+        );
 
         res.status(200).json({
             success: true,

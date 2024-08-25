@@ -117,3 +117,19 @@ html, body{
 .input-shadow::placeholder{
     color: #7d808b;
 }
+
+.background-effect{
+    position: absolute;
+    border-radius: 100%;
+    -webkit-filter: blur(34px);
+    filter: blur(34px);
+    height: 207.05px;
+    left: calc(50% - 243.005px);
+    opacity: .6;
+    top: calc(50% - 135.995px);
+    -webkit-transform: matrix(1, 0, -.03, 1, 0, 0);
+    transform: matrix(1, 0, -.03, 1, 0, 0);
+    width: 302.95px;
+    background: linear-gradient(123.77deg, #EC008C -10.46%, #f8f8ff 124.53%);
+    z-index: 0;
+}

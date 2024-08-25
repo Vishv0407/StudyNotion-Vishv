@@ -26,7 +26,7 @@ const Login = () => {
         confirmPassword: "",
     });
 
-    const { firstName, lastName, email, contactNumber, password, confirmPassword } = formData;
+    const {password, confirmPassword } = formData;
     
     function changeHandler(event) {
         setFormData((prevData) => ({
