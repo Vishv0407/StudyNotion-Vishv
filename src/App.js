@@ -9,6 +9,7 @@ import UpdatePassword from "./Pages/UpdatePassword";
 import VerifyEmail from "./Pages/VerifyEmail";
 import ResetComplete from "./Pages/ResetComplete";
 import AboutUs from "./Pages/AboutUs";
+import ContactUs from "./Pages/ContactUs";
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route path="/reset-complete" element={<ResetComplete/>} />
 
         <Route path="/about" element={<AboutUs/>} />
+        <Route path="/contact" element={<ContactUs/>} />
 
 
       </Routes>

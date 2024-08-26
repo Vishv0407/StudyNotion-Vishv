@@ -133,3 +133,9 @@ html, body{
     background: linear-gradient(123.77deg, #EC008C -10.46%, #f8f8ff 124.53%);
     z-index: 0;
 }
+
+@media (max-width: 450px) {
+    .learningGrid{
+        grid-template-columns: 1fr;
+    }
+}

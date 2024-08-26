@@ -5,6 +5,7 @@ const PaymentRoutes = require('./routes/Payments');
 const UserRoutes = require('./routes/User');
 const ProfileRoutes = require('./routes/Profile');
 const CourseRoutes = require('./routes/Course');
+const ContactUsRoutes = require('./routes/ContactUs');
 
 const database = require('./config/database');
 const {cloudinaryConnect} = require('./config/cloudinary');
@@ -35,6 +36,7 @@ app.use("/api/v1/auth", UserRoutes);
 app.use("/api/v1/profile", ProfileRoutes);
 app.use("/api/v1/course", CourseRoutes);
 app.use("/api/v1/payment", PaymentRoutes);
+app.use("/api/v1", ContactUsRoutes);
 
 app.get("/", (req,res) => {
     return res.json({

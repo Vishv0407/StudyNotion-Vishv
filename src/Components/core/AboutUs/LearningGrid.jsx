@@ -47,7 +47,7 @@ const LearningGridArray = [
 const LearningGrid = () => {
     return (
         <section>
-            <div className="grid mx-auto grid-cols-1 lg:grid-cols-4 mb-10 w-[90%] max-w-[1280px] py-20">
+            <div className="learningGrid grid mx-auto grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10 w-[90%] max-w-[1280px] py-20">
                 {
                     LearningGridArray.map((item, index) => {
                         return (    
@@ -63,7 +63,7 @@ const LearningGrid = () => {
                                 {
                                     item.order < 0
                                     ? (
-                                        <div className="flex flex-col gap-4 px-4">
+                                        <div className="flex flex-col gap-4 px-4 pb-8">
                                             <div className="text-4xl font-bold">
                                                 <p>{item.heading}</p>
                                                 <HighlightText text={item.highlightText}/>
@@ -71,7 +71,7 @@ const LearningGrid = () => {
                                             <p className="text-[#838894]">
                                                 {item.description}
                                             </p>
-                                            <div className="mt-4 w-fit">
+                                            <div className="w-fit">
                                                 <CTAButton active={true} linkto={item.BtnLink}>
                                                     {item.BtnText}
                                                 </CTAButton>

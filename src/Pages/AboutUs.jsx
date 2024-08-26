@@ -13,7 +13,7 @@ const AboutUs = () => {
   return (
     <div className='flex flex-col items-center text-white justify-center'>
         {/* Section 1 */}
-        <section className='bg-[#2C333F] flex flex-col justify-center items-center w-full relative pb-8 lg:pb-[260px]'>
+        <section className='bg-[#2C333F] flex flex-col justify-center items-center w-full relative pb-8 '>
             <div className='flex flex-col justify-center items-center mt-[100px] relative mx-auto w-[80%] max-w-[1280px]'>
                 <header>
                     <div className='text-4xl text-center'>
@@ -25,7 +25,7 @@ const AboutUs = () => {
                         <p className='w-full text-center'>Studynotion is at the forefront of driving innovation in online education. We're passionate about creating a brighter future by offering cutting-edge courses, leveraging emerging technologies, and nurturing a vibrant learning community.</p>
                     </div>
 
-                    <div className='flex flex-col justify-center items-center  lg:flex-row gap-6 mt-8 mx-auto lg:absolute'>
+                    <div className='flex flex-col justify-center items-center lg:flex-row gap-6 mt-8 px-8 mx-auto mb-[-10%]'>
                         <img src={about1} alt="aboutus1" />
                         <img src={about2} alt="aboutus2" />
                         <img src={about3} alt="aboutus3" />
@@ -102,6 +102,8 @@ const AboutUs = () => {
         {/* Section 6 */}
         <GetInTouch />
 
+        {/* Section 7 */}
+        {/* Review Slider */}
 
         <Footer />
 
