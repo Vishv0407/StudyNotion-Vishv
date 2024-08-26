@@ -27,7 +27,7 @@ const AboutUs = () => {
 
                     <div className='flex flex-col justify-center items-center lg:flex-row gap-6 mt-8 px-8 mx-auto mb-[-10%]'>
                         <img src={about1} alt="aboutus1" />
-                        <img src={about2} alt="aboutus2" />
+                        <img src={about2} alt="aboutus2" /
                         <img src={about3} alt="aboutus3" />
                     </div>
                 </header>
