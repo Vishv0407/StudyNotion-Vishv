@@ -15,8 +15,7 @@ function ProfileDropdown() {
   };
 
   const user = JSON.parse(localStorage.getItem("user"));
-  console.log(user.email);
-
+  
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (!event.target.closest('.flex.items-center.relative')) {
@@ -64,7 +63,7 @@ function ProfileDropdown() {
       {isOpen && (
         <ul className="absolute bg-white/10 text-white border-[1px] border-richblack-300 backdrop-blur-sm p-4 top-[100%] translate-y-3 left-[-75%] flex gap-2 flex-col rounded-lg">
           <li>
-            <a href="/profile">Profile</a>
+            <a href="/dashboard/profile">Profile</a>
           </li>
           <hr />
           <li>

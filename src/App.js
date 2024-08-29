@@ -10,6 +10,8 @@ import VerifyEmail from "./Pages/VerifyEmail";
 import ResetComplete from "./Pages/ResetComplete";
 import AboutUs from "./Pages/AboutUs";
 import ContactUs from "./Pages/ContactUs";
+import Dashboard from "./Pages/Dashboard";
+import MyProfile from "./Components/core/Dashboard/MyProfile";
 
 
 function App() {
@@ -27,6 +29,10 @@ function App() {
 
         <Route path="/about" element={<AboutUs/>} />
         <Route path="/contact" element={<ContactUs/>} />
+
+        <Route path="/dashboard" element={<Dashboard/>} />
+        <Route path="/dashboard/my-profile" element={<MyProfile/>} />
+        
 
 
       </Routes>
