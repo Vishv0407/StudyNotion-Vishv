@@ -9,6 +9,8 @@ import ProfileDropdown from '../core/Navbar/ProfileDropdown'
 import { apiConnector } from '../../Services/apiConnector'
 import { categories } from '../../Services/apis'
 import { IoIosArrowDown } from "react-icons/io";
+import { RiArrowDropDownLine } from "react-icons/ri";
+
 
 
 // const subLinks = [
@@ -32,6 +34,11 @@ const Navbar = () => {
         return matchPath({ path: route }, location.pathname);
     }
 
+    var tokenExist = false;
+    if(token !== null){
+        tokenExist = true;
+    }
+
     const [subLinks, setSubLinks] = useState([]);
 
     const fetchSubLinks = async() => {
@@ -49,7 +56,7 @@ const Navbar = () => {
     }, []);
 
     return (
-        <div className='flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700 '>
+        <div className={`${tokenExist ? "bg-richblack-800" : "bg-richblack-00"} flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700`}>
             <div className='flex flex-row w-11/12 max-w-maxContent justify-between items-center'>
                 {/* Logo Image */}
                 <Link to='/'>
@@ -108,7 +115,9 @@ const Navbar = () => {
                     {
                         user && user?.accountType !== "Instructor" && (
                             <Link to="dashboard/cart" className='relative'>
-                                <AiOutlineShoppingCart />
+                                <p className='text-richblack-300 text-xl'>
+                                    <AiOutlineShoppingCart />
+                                </p>
                                 {
                                     totalItems > 0 && (
                                         <div className='absolute top-0 right-0 w-4 h-4 bg-pink-500 rounded-full flex justify-center items-center text-white text-sm'>

@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../../Services/Opertations/authAPI';
 import toast from 'react-hot-toast';
+import { RiArrowDropDownLine } from "react-icons/ri";
+
 
 function ProfileDropdown() {
   const dispatch = useDispatch();
@@ -57,13 +59,16 @@ function ProfileDropdown() {
 
   return (
     <div className="flex items-center relative">
-      <button className="w-[30px] rounded-full" onClick={handleToggle}>
+      <button className="flex flex-row  items-center w-[30px] rounded-full" onClick={handleToggle}>
         <img className="w-full rounded-full" src={user.image} alt="" />
+        <p className='text-richblack-50 text-xl'>
+          <RiArrowDropDownLine />
+        </p>
       </button>
       {isOpen && (
-        <ul className="absolute bg-white/10 text-white border-[1px] border-richblack-300 backdrop-blur-sm p-4 top-[100%] translate-y-3 left-[-75%] flex gap-2 flex-col rounded-lg">
+        <ul className="absolute bg-white/10 text-white border-[1px] border-richblack-300 backdrop-blur-sm p-4 top-[100%] translate-y-3 left-[-75%] flex gap-2 flex-col rounded-lg z-50">
           <li>
-            <a href="/dashboard/profile">Profile</a>
+            <a href="/dashboard/my-profile">Dashboard</a>
           </li>
           <hr />
           <li>

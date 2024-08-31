@@ -139,3 +139,8 @@ html, body{
         grid-template-columns: 1fr;
     }
 }
+
+.overlay-modal{
+    background-color: rgba(101, 101, 101, 0.377);
+    backdrop-filter: blur(4px);
+}

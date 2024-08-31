@@ -11,7 +11,12 @@ import ResetComplete from "./Pages/ResetComplete";
 import AboutUs from "./Pages/AboutUs";
 import ContactUs from "./Pages/ContactUs";
 import Dashboard from "./Pages/Dashboard";
+import Error from "./Pages/Error";
+import PrivateRoute from "./Components/core/Auth/PrivateRoute";
 import MyProfile from "./Components/core/Dashboard/MyProfile";
+import PurchaseHistory from "./Components/core/Dashboard/PurchaseHistory";
+import EnrolledCourses from "./Components/core/Dashboard/EnrolledCourses";
+import Settings from "./Components/core/Dashboard/Settings";
 
 
 function App() {
@@ -31,8 +36,23 @@ function App() {
         <Route path="/contact" element={<ContactUs/>} />
 
         <Route path="/dashboard" element={<Dashboard/>} />
-        <Route path="/dashboard/my-profile" element={<MyProfile/>} />
         
+        
+        <Route
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        >
+          <Route path="/dashboard/my-profile" element={<MyProfile/>} />
+          <Route path="/dashboard/purchase-history" element={<PurchaseHistory/>} />
+          <Route path="/dashboard/enrolled-courses" element={<EnrolledCourses/>} />
+
+          <Route path="/dashboard/settings" element={<Settings/>} />
+        </Route>
+
+        <Route path="*" element={<Error />} />
 
 
       </Routes>

@@ -22,7 +22,7 @@ const Sidebar = () => {
     }
 
     return (
-        <div className='text-white h-[calc(100vh-3.5rem)]'>
+        <div className='text-white h-[calc(100vh-3.5rem)] w-[222px] bg-richblack-800 pt-8'>
             <div className=''>
             {
                 sidebarLinks.map((link) => {
@@ -34,9 +34,9 @@ const Sidebar = () => {
             }
             </div>
 
-            <div className='mx-auto my-6 h-[1px] w-10/12 bg-richblack-600'>
+            <div className='mx-auto my-4 h-[1px] w-10/12 bg-richblack-600'></div>
 
-            <div className='flex flex-col'>
+            <div className='flex flex-col '>
                 <SidebarLink 
                     link={{name:"Settings", path:"/dashboard/settings"}}
                     iconName="VscSettingsGear"
@@ -54,7 +54,7 @@ const Sidebar = () => {
                     className='text-sm font-medium text-richblack-300'
                 >
 
-                    <div className='flex items-center gap-x-2'>
+                    <div className='flex items-center pl-6 gap-x-2 border-l-[4px] border-l-transparent py-2 px-2 font-medium text-richblack-200 text-base'>
                         <VscSignOut className='text-lg'/>
                         <span>Logout</span>
                     </div>
@@ -62,7 +62,6 @@ const Sidebar = () => {
                 </button>
             </div>
 
-            </div>
 
             {confirmationModal && <ConfirmationModal modalData={confirmationModal} />}
         </div>

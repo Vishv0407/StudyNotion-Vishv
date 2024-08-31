@@ -175,7 +175,7 @@ exports.login = async(req, res) => {
         // get data from db
         // check user exist or not
 
-        const user = await User.findOne({email});
+        const user = await User.findOne({email}).populate("additionalDetails").exec();
 
         if(!user){
             return res.status(404).json({

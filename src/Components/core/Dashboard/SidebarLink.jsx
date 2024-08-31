@@ -15,15 +15,13 @@ const SidebarLink = ({link, iconName}) => {
         return matchPath({path:route}, location.pathname);
     }
 
+    //
   return (
     <NavLink 
     to={link.path}
     // onClick
-    className={`relative px-8 py-0 text-sm w-full font-medium ${matchRoute(link.path) ? "bg-yellow-600" : "bg-opacity-0"}`}
     >
-    <span className={`absolute left-0 top-0 h-full w-[0.2rem] bg-yellow-50 ${matchRoute(link.path) ? "opacity-100" : "opacity-0"}`}></span>
-
-    <div className='flex item-center gap-x-2'>
+    <div className= {`flex items-center pl-6 gap-x-2 border-l-[6px] border-l-transparent py-2 px-2 font-medium text-richblack-200  ${matchRoute(link.path) ? "bg-yellow-800 border-l-yellow-50 text-yellow-50" : "bg-opacity-0"}`}>
         <Icon className="text-lg" ></Icon>
         <span>{link.name}</span>
     </div>
