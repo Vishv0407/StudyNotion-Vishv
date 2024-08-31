@@ -144,3 +144,32 @@ html, body{
     background-color: rgba(101, 101, 101, 0.377);
     backdrop-filter: blur(4px);
 }
+
+
+
+
+
+
+
+
+/* //Scrollbar */
+::-webkit-scrollbar {
+    width: 7px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    position: absolute;
+    background: black;
+    z-index: -1000;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #ffffff;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #f3f3f3; 
+  }
