@@ -59,8 +59,8 @@ function ProfileDropdown() {
 
   return (
     <div className="flex items-center relative">
-      <button className="flex flex-row  items-center w-[30px] rounded-full" onClick={handleToggle}>
-        <img className="w-full rounded-full" src={user.image} alt="" />
+      <button className="flex flex-row  items-center rounded-full" onClick={handleToggle}>
+        <img className="w-8 h-8 object-cover rounded-full" src={user.image} alt="" />
         <p className='text-richblack-50 text-xl'>
           <RiArrowDropDownLine />
         </p>

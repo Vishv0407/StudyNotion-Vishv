@@ -199,12 +199,19 @@ exports.login = async(req, res) => {
                 id: user._id,
                 accountType: user.accountType,
             }
-            const token = jsonwebtoken.sign(payload, process.env.JWT_SECRET, {
-                expiresIn: "2h"
-            });
+            
+            const token = jsonwebtoken.sign(payload, process.env.JWT_SECRET
+            //     , {
+            //     expiresIn: "2h"
+            // }
+        );
 
             user.token = token;
             user.password = undefined;
+
+            console.log(token)
+            console.log(payload)
+            console.log(user)
 
             const options = {
                 // 3 days in microsecond

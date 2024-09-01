@@ -76,9 +76,25 @@ export function signUp(
       toast.success("Signup Successful")
       navigate("/login")
     } catch (error) {
-      console.log("SIGNUP API ERROR............", error)
-      toast.error("Signup Failed")
-      navigate("/signup")
+      if(error.response.data.message === "Password and Confirm Password is not matched"){
+        toast.error("Password and Confirm Password is not matched")
+      }
+      else if(error.response.data.message === "User already exist, Please Log In"){
+        toast.error("User already exist, Please Log In")
+      }
+      else if(error.response.data.message === "OTP found with 0 length"){
+        toast.error("Please enter the OTP")
+      }
+      else if(error.response.data.message === "OTP not matched"){
+        toast.error("Invalid OTP")
+      }
+      else if(error.response.data.message === "All fields are not filled"){
+        toast.error("Please enter the OTP")
+      }
+      else{
+        console.log("SIGNUP API ERROR............", error)
+        toast.error("Signup Failed")
+      }
     }
     dispatch(setLoading(false))
     toast.dismiss(toastId)

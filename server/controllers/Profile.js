@@ -175,36 +175,40 @@ exports.getUserAllDetails = async(req,res) => {
 // getEnrolledCourses
 
 // updateDisplayPicture
-
-exports.updateDisplayPicture = async(req, res) => {
-    try{
-        // get user id
-        // get image from req
-        // update image in db
-        // return response
+exports.updateDisplayPicture = async (req, res) => {
+    try {
         const userId = req.user.id;
         const image = req.files.displayPicture;
+        
+        // Debugging logs
+        // console.log('User ID:', userId);
+        // console.log('Received image:', image);
+        
+        if (!image) {
+            return res.status(400).json({
+                success: false,
+                message: "No image provided",
+            });
+        }
 
         const imageLink = await uploadImageToCloudinary(image, process.env.FOLDER_NAME);
         const updatedUser = await User.findByIdAndUpdate(
-            userId, 
-            {image: imageLink.secure_url}, 
-            {new: true}
+            userId,
+            { image: imageLink.secure_url },
+            { new: true }
         );
 
         return res.status(200).json({
             success: true,
             message: "Display picture updated successfully",
-            data: updatedUser
+            data: updatedUser,
         });
-    }
-    catch(error){
-        console.log("error in updateDisplayPicture controller");
+    } catch (error) {
+        console.log("Error in updateDisplayPicture controller");
         console.error(error);
         return res.status(500).json({
             success: false,
-            message: error.message
+            message: error.message,
         });
-        
     }
-}
+};

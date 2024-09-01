@@ -17,3 +17,8 @@ export const categories = {
 export const contactUsEnpoints = {
     CONTACTUS_API: BASE_URL + "/contact-us",
 }
+
+export const profileEndpoints = {
+    UPDATEPROFILEPICTUTRE_API: BASE_URL + "/profile/updateDisplayPicture",
+
+}

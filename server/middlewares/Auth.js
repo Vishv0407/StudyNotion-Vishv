@@ -5,8 +5,17 @@ const User = require('../models/User');
 // auth
 exports.auth = async(req, res, next) => {
     try{
+        // console.log(req);
         // extract the token
-        const token = req.cookies.token || req.body.token || req.header("Authorisation").replace("Bearer ", "");
+        // const token = req.cookies.token || req.body.token || req.header("Authorisation").replace("Bearer ", "");
+        // const token = localStorage.getItem("token");
+        const token = req.body.token;
+
+        const cleanedToken = token.replace(/"/g, '').trim();
+        
+        console.log(cleanedToken); // Should be "dsaa" without quotes
+
+        console.log("auth sudhi pochi gyu");
 
         if(!token){
             res.status(401).json({
@@ -17,9 +26,10 @@ exports.auth = async(req, res, next) => {
 
         // verify the token
         try{
-            const decode = jwt.verify(token, process.env.JWT_SECRET);
+            const decode = jwt.verify(cleanedToken, process.env.JWT_SECRET);
             console.log(decode);
             req.user = decode;
+            next();
         }
         catch(error){
             res.status(401).json({
@@ -27,7 +37,6 @@ exports.auth = async(req, res, next) => {
                 message: "Token is invalid"
             })
         }
-        next();
     }
     catch(error){
         console.log("Error in auth middleware");
@@ -115,7 +124,6 @@ exports.isAdmin = async(req, res, next) => {
                 // })
             return next();
         }
-        next();
     }
     catch(error){
         console.log("Error in isAdmin middleware");
