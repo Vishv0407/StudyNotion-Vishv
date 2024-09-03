@@ -25,7 +25,7 @@ exports.resetPasswordToken = async(req, res) => {
         const updateDetails = await User.findOneAndUpdate(
                                         {email: email}, 
                                         {
-                                            token: token,
+                                            resetPasswordToken: token,
                                             resetPasswordExpires: Date.now() + 5*60*1000,
                                             // 5 mins     
                                         },
@@ -79,7 +79,7 @@ exports.resetPassword = async (req, res) => {
         }
 
         // Find user by token
-        const userDetails = await User.findOne({ token: token });
+        const userDetails = await User.findOne({ resetPasswordToken: token });
 
         // Check if user exists
         if (!userDetails) {
@@ -135,7 +135,7 @@ exports.resetCompleteUserData = async(req, res) => {
     try{
         const {token} = req.body;
         
-        const user = await User.findOne({token:token});
+        const user = await User.findOne({resetPasswordToken:token});
 
         if(!user){
             return res.status(404).json({

@@ -20,7 +20,7 @@ const MyProfile = () => {
           {/* Section 1 */}
           <div className="bg-richblack-800 flex flex-row justify-between w-full items-center p-6 rounded-xl border-[1px] border-richblack-700">
             <div className="flex flex-row items-center gap-4">
-              <img className="w-20 rounded-full" src={user?.image} alt={user?.firstName} />
+              <img className="w-20 h-20 object-cover rounded-full" src={user?.image} alt={user?.firstName} />
               <div>
                 <p className="font-bold text-lg">{user?.firstName + " " + user?.lastName}</p>
                 <p className="text-richblack-300">{user?.email}</p>

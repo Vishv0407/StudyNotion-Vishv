@@ -14,7 +14,7 @@ exports.updateProfile = async(req,res) => {
         // update
         // return response
 
-        const {dateOfBirth, about, gender} = req.body;
+        const {firstName, lastName, contactNumber, dateOfBirth, about, gender} = req.body;
         const userId = req.user.id;
 
         if(!userId || !gender){
@@ -29,7 +29,7 @@ exports.updateProfile = async(req,res) => {
 
 
 
-        const userDetails = await User.findById(userId);
+        const userDetails = await User.findById(userId).populate("additionalDetails").exec();
         if (!userDetails) {
             return res.status(404).json({
                 success: false,
@@ -37,26 +37,25 @@ exports.updateProfile = async(req,res) => {
             });
         }
 
-        const profileId = userDetails.additionalDetails;
-        const profileDetails = await Profile.findById(profileId);
-        if (!profileDetails) {
-            return res.status(404).json({
-                success: false,
-                message: "Profile not found",
-            });
+        userDetails.firstName = firstName;
+        userDetails.lastName = lastName;
+        userDetails.contactNumber = contactNumber;
+
+        if (userDetails.additionalDetails) {
+            userDetails.additionalDetails.about = about;
+            userDetails.additionalDetails.dateOfBirth = dateOfBirth;
+            userDetails.additionalDetails.gender = gender;
+            await userDetails.additionalDetails.save(); // Save the additional details
         }
 
-        profileDetails.dateOfBirth = dateOfBirth;
-        profileDetails.about = about;
-        profileDetails.gender = gender;
-
         // we created obj then save in db
-        await profileDetails.save();
+        await userDetails.save(); // Save the user
+
 
         return res.status(200).json({
             success: true,
             message: "Profile updated successfully",
-            profileDetails
+            user: userDetails
         })
 
 
