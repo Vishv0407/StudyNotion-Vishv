@@ -3,7 +3,7 @@ import IconBtn from "./IconBtn";
 
 const ConfirmationModal = ({ modalData }) => {
   return (
-    <div className="absolute w-full top-0 h-full flex flex-col justify-center items-center overlay-modal">
+    <div className="fixed w-full top-0 left-0 z-[100] h-full flex flex-col justify-center items-center overlay-modal">
       <div className="bg-richblack-800 p-4 flex flex-col gap-2 border-[1px] border-richblack-500 rounded-lg">
         <h1 className="font-bold">{modalData.text1}</h1>
         <p className="text-[13px] text-richblack-300">{modalData.text2}</p>

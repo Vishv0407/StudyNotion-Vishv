@@ -7,42 +7,43 @@ const EditFormSettings = () => {
   const { user } = useSelector((state) => state.profile);
   const dispatch = useDispatch();
 
+  const defaultValues = {
+    firstName: user.firstName,
+    lastName: user.lastName,
+    contactNumber: user.contactNumber,
+    about: user?.additionalDetails.about,
+    dateOfBirth: user?.additionalDetails.dateOfBirth,
+    gender: user?.additionalDetails.gender || "male",
+  };
+
   const {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors, isSubmitSuccessful },
   } = useForm({
-    defaultValues: {
-      firstName: user.firstName,
-      lastName: user.lastName,
-      contactNumber: user.contactNumber,
-      about: user?.additionalDetails.about,
-      dateOfBirth: user?.additionalDetails.dateOfBirth,
-      gender: user?.additionalDetails.gender || "male",
-    },
+    defaultValues,
   });
 
   const submitEditForm = (data) => {
-    data.token = user.token;
-    console.log(data);
-
-    dispatch(updateProfileDetails(data, dispatch));
-    // dispatch(updateUserDetails(data, dispatch));
+    data.token = user.token ? user.token : localStorage.getItem("token");
+    dispatch(updateProfileDetails(data));
   };
+
+  // Watch the fields for changes
+  const watchFields = watch();
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      reset({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        contactNumber: user.contactNumber,
-        gender: user.gender,
-        about: user.about,
-        dateOfBirth: user.dateOfBirth,
-      });
+      reset(defaultValues);
     }
-  }, [reset, isSubmitSuccessful, user]);
+  }, [reset, isSubmitSuccessful]);
+
+  // Compare current field values with default values
+  const isFormChanged = Object.keys(defaultValues).some(
+    (key) => watchFields[key] !== defaultValues[key]
+  );
 
   return (
     <div className="flex flex-col gap-6 p-8 bg-richblack-800 rounded-lg shadow-lg border-[1px] border-richblack-700">
@@ -158,9 +159,16 @@ const EditFormSettings = () => {
         </div>
 
         <div className="flex flex-row gap-4 justify-end mt-8">
-          <button type="button" className="w-fit py-2 px-4 bg-richblack-700 rounded-lg text-richblack-100" onClick={() => reset()}>
+          {isFormChanged && (
+            <button 
+            type="button" 
+            className="w-fit py-2 px-4 bg-richblack-700 rounded-lg text-richblack-100" 
+            onClick={() => reset()}
+            >
             Cancel
           </button>
+          )}
+          
           <button type="submit" className="w-fit py-2 px-4 bg-yellow-200 rounded-lg text-black">
             Submit
           </button>

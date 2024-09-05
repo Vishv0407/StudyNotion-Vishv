@@ -44,8 +44,7 @@ const PhotoSettings = () => {
         formData.append("displayPicture", fileInputRef.current.files[0]);
         formData.append("token", localStorage.getItem("token"));
         
-        // Pass the FormData instead of the base64 string
-        updateProfilePicture(formData, dispatch, setFilePreview);
+        dispatch(updateProfilePicture(formData, setFilePreview));
     };
 
     return (

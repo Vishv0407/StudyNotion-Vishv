@@ -12,6 +12,7 @@ const {
   LOGIN_API,
   RESETPASSTOKEN_API,
   RESETPASSWORD_API,
+  CHANGEPASSWORD_API
 } = endpoints
 
 export function sendOtp(email, navigate) {
@@ -112,7 +113,7 @@ export function login(email, password, accountType, navigate) {
         accountType,
       })
 
-      console.log("LOGIN API RESPONSE............", response)
+      // console.log("LOGIN API RESPONSE............", response)
 
       if (!response.data.success) {
         throw new Error(response.data.message)
@@ -217,4 +218,38 @@ export function resetPassword(password, confirmPassword, token, navigate) {
     }
     dispatch(setLoading(false));
   }
+}
+
+export function UpdatePassword(formData){
+  return async (dispatch) => {
+  const toastId = toast.loading("Loading...");
+  try {
+
+      const response = await apiConnector("POST", CHANGEPASSWORD_API, formData, {
+          "Content-Type": "multipart/form-data",
+      });
+      console.log("CHNAGE PASSWORD API RESPONSE:", response);
+
+      if (!response.data.success) {
+          throw new Error(response.data.message);
+      }
+      
+      dispatch(setUser(response.data.user)); // Update the profile in Redux
+
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+
+      toast.success("Password Chnaged Successfully");
+  } catch (error) {
+      if (error.response?.data?.message === "Old Password is incorrect") {
+          toast.error("Old Password is incorrect");
+      } else if (error.response?.data?.message === "new password and confirm password not matched") {
+          toast.error("new password and confirm password not matched");
+      } else {
+          console.log("CHANGE PASSWORD API ERROR:", error);
+          toast.error("Could Not Change Password");
+      }
+  } finally {
+      toast.dismiss(toastId);
+  }
+}
 }

@@ -209,10 +209,6 @@ exports.login = async(req, res) => {
             user.token = token;
             user.password = undefined;
 
-            console.log(token)
-            console.log(payload)
-            console.log(user)
-
             const options = {
                 // 3 days in microsecond
                 Expires: new Date(Date.now() + 3*24*60*60*1000),
@@ -246,49 +242,61 @@ exports.login = async(req, res) => {
 // chnagePassword
 
 // you can use auth middleware to authenticate user, then no need to pass email
-exports.changePassword = async(req, res) => {
-    try{
-        // fetch data from req body
-        const {email, oldPassword, newPassword, confirmPassword } = req.body;
+exports.changePassword = async (req, res) => {
+    try {
+        // Fetch data from req body
+        const { email, oldPassword, newPassword, confirmPassword } = req.body;
 
-        if(!email || !oldPassword || !newPassword || !confirmPassword ){
-            res.status(403).json({
+        // Check if all fields are filled
+        if (!email || !oldPassword || !newPassword || !confirmPassword) {
+            return res.status(403).json({
                 success: false,
-                message:"All fields are not filled",
+                message: "All fields are not filled",
             });
         }
 
-        if(newPassword !== confirmPassword){
-            res.status(400).json({
+        // Check if newPassword and confirmPassword match
+        if (newPassword !== confirmPassword) {
+            return res.status(400).json({
                 success: false,
-                message:"new password and confirm password not matched",
+                message: "New password and confirm password do not match",
             });
         }
 
-        // get user from db
-        const user = await User.findOne({email});
+        // Get user from DB
+        const user = await User.findOne({ email });
 
-        // compare old password with entered password
-        // update database with new password
-        if( await bcrypt.compare(oldPassword, user.password)){
-            const newHashedPassword = bcrypt.hash(newPassword, 10);
-            
-            await User.findOneAndUpdate({ email: email }, {  password: newHashedPassword }, {new: true});
-            
-            res.status(200).json({
-                success: true,
-                message: "Password changed successfully"
+        // Compare old password with entered password
+        const isMatch = await bcrypt.compare(oldPassword, user.password);
+        if (!isMatch) {
+            return res.status(400).json({
+                success: false,
+                message: "Old Password is incorrect",
             });
         }
-    }
-    catch(error){
-        console.log("error in changePassword controller");
+
+        // Hash new password and update the database
+        const newHashedPassword = await bcrypt.hash(newPassword, 10);
+        await User.findOneAndUpdate(
+            { email: email },
+            { password: newHashedPassword },
+            { new: true }
+        );
+
+        res.status(200).json({
+            success: true,
+            message: "Password changed successfully",
+            user,
+        });
+    } catch (error) {
+        console.log("Error in changePassword controller");
         console.error(error);
         return res.status(500).json({
-            success:false,
+            success: false,
             message: "Error in changePassword controller",
-        })
+        });
     }
-}
+};
+
 
 

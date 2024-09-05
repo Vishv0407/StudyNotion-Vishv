@@ -8,6 +8,7 @@ export const endpoints = {
     RESETPASSTOKEN_API: BASE_URL + "/auth/reset-password-token",
     RESETPASSWORD_API: BASE_URL + "/auth/reset-password",
     RESETCOMPLETEUSERDATA_API: BASE_URL + "/auth/reset-complete/userData",
+    CHANGEPASSWORD_API: BASE_URL + "/auth/changepassword"
 }
 
 export const categories = {
