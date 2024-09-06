@@ -26,7 +26,7 @@ export function sendOtp(email, navigate) {
       })
       console.log("SENDOTP API RESPONSE............", response)
 
-      console.log(response.data.success)
+      // console.log(response.data.success)
 
       if (!response.data.success) {
         throw new Error(response.data.message)
@@ -113,7 +113,7 @@ export function login(email, password, accountType, navigate) {
         accountType,
       })
 
-      // console.log("LOGIN API RESPONSE............", response)
+      console.log("LOGIN API RESPONSE............", response)
 
       if (!response.data.success) {
         throw new Error(response.data.message)

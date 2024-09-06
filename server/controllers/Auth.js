@@ -159,85 +159,88 @@ exports.signUp = async(req, res) => {
 
 // login
 
-exports.login = async(req, res) => {
-    try{
-        // fetch data from req body
-        const {email, password, accountType} = req.body;
+    exports.login = async(req, res) => {
+        try{
+            // fetch data from req body
+            const {email, password, accountType} = req.body;
 
-        // validate data
-        if(!email || !password || !accountType){
-            return res.status(403).json({
-                success: false,
-                message:"All fields are not filled",
+            // validate data
+            if(!email || !password || !accountType){
+                return res.status(403).json({
+                    success: false,
+                    message:"All fields are not filled",
+                })
+            }
+
+            // get data from db
+            // check user exist or not
+
+            const user = await User.findOne({email}).populate("additionalDetails").exec();
+
+            if(!user){
+                return res.status(404).json({
+                    success: false,
+                    message:"user not found, please create account then try to login",
+                });
+            }
+
+            if(accountType !== user.accountType){
+                return res.status(403).json({
+                    success: false,
+                    message: "Wrong role selected",
+                })
+            }
+
+            if(await bcrypt.compare(password, user.password)){
+                
+                // create token and cookie
+                const payload = {
+                    email: user.email,
+                    id: user._id,
+                    accountType: user.accountType,
+                }
+                
+                const token = jsonwebtoken.sign(payload, process.env.JWT_SECRET
+                //     , {
+                //     expiresIn: "2h"
+                // }
+            );
+
+                user.token = token;
+                await user.save();
+                
+                user.password = undefined;
+
+
+                const options = {
+                    // 3 days in microsecond
+                    Expires: new Date(Date.now() + 3*24*60*60*1000),
+                    httpOnly: true,
+                }
+                res.cookie("token", token, options).status(200).json({
+                    success: true,
+                    message: "User logged In successfully",
+                    user
+                });
+            }
+            else{
+                return res.status(400).json({
+                    success: false,
+                    message:"Password not matched",
+                });
+            }
+
+        }
+        catch(error){
+            console.log("error in login controller");
+            console.error(error);
+
+            return res.status(500).json({
+                success:false,
+                message: "error in login controller",
             })
         }
-
-        // get data from db
-        // check user exist or not
-
-        const user = await User.findOne({email}).populate("additionalDetails").exec();
-
-        if(!user){
-            return res.status(404).json({
-                success: false,
-                message:"user not found, please create account then try to login",
-            });
-        }
-
-        if(accountType !== user.accountType){
-            return res.status(403).json({
-                success: false,
-                message: "Wrong role selected",
-            })
-        }
-
-        if(await bcrypt.compare(password, user.password)){
-            
-            // create token and cookie
-            const payload = {
-                email: user.email,
-                id: user._id,
-                accountType: user.accountType,
-            }
-            
-            const token = jsonwebtoken.sign(payload, process.env.JWT_SECRET
-            //     , {
-            //     expiresIn: "2h"
-            // }
-        );
-
-            user.token = token;
-            user.password = undefined;
-
-            const options = {
-                // 3 days in microsecond
-                Expires: new Date(Date.now() + 3*24*60*60*1000),
-                httpOnly: true,
-            }
-            res.cookie("token", token, options).status(200).json({
-                success: true,
-                message: "User logged In successfully",
-                user
-            });
-        }
-        else{
-            return res.status(400).json({
-                success: false,
-                message:"Password not matched",
-            });
-        }
-
     }
-    catch(error){
-        console.log("error in login controller");
-        console.error(error);
-
-        return res.status(500).json({
-            success:false,
-            message: "error in login controller",
-        })
-    }
-}
 
 // chnagePassword
 

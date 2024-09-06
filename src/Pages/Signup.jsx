@@ -129,6 +129,8 @@ const Login = () => {
                                 onChange={changeHandler}
                                 name='contactNumber'
                                 required
+                                minLength={10}
+                                maxLength={10}
                                 className='input-shadow w-full bg-richblack-800 px-4 py-3 rounded-lg mb-6 text-richblack-100'
                             />
                         </div>
